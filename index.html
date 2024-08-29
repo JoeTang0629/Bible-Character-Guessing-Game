@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Character Guessing Game</title>
+    <link rel="stylesheet" href="D:\joetang\My Worksheet\JJ\GuessWhoAmI\styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Bible Character Guessing Game</h1>
+        <div id="start-screen" class="screen">
+            <h2>Welcome!</h2>
+            <p>Can you guess the Bible character?</p>
+            <button id="start-game">Start Game</button>
+        </div>
+        <div id="game-screen" class="screen hidden">
+            <p id="clue"></p>
+            <input type="text" id="guess" placeholder="Enter your guess">
+            <button id="submit-guess">Submit Guess</button>
+            <p id="feedback"></p>
+            <button id="next-clue" class="hidden">Next Clue</button>
+        </div>
+        <div id="end-screen" class="screen hidden">
+            <h2>Game Over</h2>
+            <p id="final-score"></p>
+            <button id="restart-game">Play Again</button>
+        </div>
+    </div>
+    <script src="D:\joetang\My Worksheet\JJ\GuessWhoAmI\script.js"></script>
+</body>
+</html>
