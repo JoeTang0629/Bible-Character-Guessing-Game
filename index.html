@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>猜猜我是誰 (聖經人物)</title>
+    <title>猜猜我是誰</title>
     <!-- link rel="stylesheet" href="bcgg-styles.css" -->
 </head>
 <body>
     <div class="game-container">
-        <h1>猜猜我是誰</h1>
+        <h1>猜猜我是誰 (聖經人物)</h1>
         <div id="start-screen" class="screen">
-            <h2>Welcome!</h2>
-            <p>Can you guess the Bible character?</p>
+            <h2>歡迎！</h2>
+            <p>你能猜出聖經中的人物嗎？</p>
             <button id="start-game">開始遊戲</button>
         </div>
         <div id="game-screen" class="screen hidden">
             <p id="clue"></p>
-            <input type="text" id="guess" placeholder="Enter your guess">
-            <button id="submit-guess">Submit Guess</button>
+            <input type="text" id="guess" placeholder="請輸入你的猜測">
+            <button id="submit-guess">提交</button>
             <p id="feedback"></p>
-            <button id="next-clue" class="hidden">Next Clue</button>
+            <button id="next-clue" class="hidden">下一個提示</button>
         </div>
         <div id="end-screen" class="screen hidden">
-            <h2>Game Over</h2>
+            <h2>遊戲結束</h2>
             <p id="final-score"></p>
-            <button id="restart-game">Play Again</button>
+            <button id="restart-game">再玩一次</button>
         </div>
     </div>
     <script src="bcgg-script.js"></script>
