@@ -1,4 +1,4 @@
-// Sample database of Bible characters and clues
+/// Sample database of Bible characters and clues
 const characters = [
     {
         name: "Moses",
@@ -23,6 +23,14 @@ const characters = [
             "She was a Jewish queen in the Persian Empire.",
             "Her story is celebrated during the festival of Purim."
         ]
+    },
+    {
+        name: "Abraham",
+        clues: [
+            "This person was called by God to leave his homeland.",
+            "He is considered the father of many nations.",
+            "He was willing to sacrifice his son Isaac."
+        ]
     }
 ];
 
@@ -31,8 +39,6 @@ let currentClueIndex = 0;
 let score = 0;
 
 document.getElementById('start-game').addEventListener('click', startGame);
-document.getElementById('submit-guess').addEventListener('click', submitGuess);
-document.getElementById('next-clue').addEventListener('click', showNextClue);
 document.getElementById('restart-game').addEventListener('click', restartGame);
 
 function startGame() {
@@ -47,47 +53,77 @@ function resetGame() {
     currentClueIndex = 0;
     score = 0;
     document.getElementById('feedback').textContent = '';
-    document.getElementById('next-clue').classList.add('hidden');
+    clearChoices();
 }
 
 function showClue() {
     const clue = characters[currentCharacterIndex].clues[currentClueIndex];
     document.getElementById('clue').textContent = clue;
+    showChoices();
 }
 
-function submitGuess() {
-    const guess = document.getElementById('guess').value.trim().toLowerCase();
-    const correctAnswer = characters[currentCharacterIndex].name.toLowerCase();
+function showChoices() {
+    const correctAnswer = characters[currentCharacterIndex].name;
+    const allAnswers = getRandomChoices(correctAnswer);
+    const choicesContainer = document.getElementById('choices');
+    
+    clearChoices();
 
-    if (guess === correctAnswer) {
-        score++;
-        document.getElementById('feedback').textContent = 'Correct!';
-        document.getElementById('next-clue').classList.remove('hidden');
-    } else {
-        document.getElementById('feedback').textContent = 'Incorrect. Try again.';
-    }
-    document.getElementById('guess').value = '';
+    allAnswers.forEach(answer => {
+        const button = document.createElement('button');
+        button.textContent = answer;
+        button.classList.add('choice-btn');
+        button.addEventListener('click', () => submitGuess(answer));
+        choicesContainer.appendChild(button);
+    });
 }
 
-function showNextClue() {
-    currentClueIndex++;
-
-    if (currentClueIndex < characters[currentCharacterIndex].clues.length) {
-        showClue();
-        document.getElementById('feedback').textContent = '';
-        document.getElementById('next-clue').classList.add('hidden');
-    } else {
-        currentCharacterIndex++;
-        currentClueIndex = 0;
-
-        if (currentCharacterIndex < characters.length) {
-            showClue();
-            document.getElementById('feedback').textContent = '';
-            document.getElementById('next-clue').classList.add('hidden');
-        } else {
-            endGame();
+function getRandomChoices(correctAnswer) {
+    const answers = characters.map(character => character.name);
+    const randomChoices = [correctAnswer];
+    
+    while (randomChoices.length < 4) {
+        const randomAnswer = answers[Math.floor(Math.random() * answers.length)];
+        if (!randomChoices.includes(randomAnswer)) {
+            randomChoices.push(randomAnswer);
         }
     }
+
+    // Shuffle the array to randomize the choices
+    return randomChoices.sort(() => Math.random() - 0.5);
+}
+
+function submitGuess(selectedAnswer) {
+    const correctAnswer = characters[currentCharacterIndex].name;
+
+    if (selectedAnswer === correctAnswer) {
+        score++;
+        document.getElementById('feedback').textContent = 'Correct!';
+    } else {
+        document.getElementById('feedback').textContent = `Incorrect! The correct answer was ${correctAnswer}.`;
+    }
+
+    // Move to the next clue or character
+    currentClueIndex++;
+
+    setTimeout(() => {
+        if (currentClueIndex < characters[currentCharacterIndex].clues.length) {
+            showClue();
+        } else {
+            currentCharacterIndex++;
+            currentClueIndex = 0;
+            if (currentCharacterIndex < characters.length) {
+                showClue();
+            } else {
+                endGame();
+            }
+        }
+    }, 1000);
+}
+
+function clearChoices() {
+    const choicesContainer = document.getElementById('choices');
+    choicesContainer.innerHTML = '';
 }
 
 function endGame() {

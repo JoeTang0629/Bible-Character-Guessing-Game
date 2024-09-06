@@ -26,6 +26,20 @@ h1 {
     display: none;
 }
 
+.choice-btn {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.choice-btn:hover {
+    background-color: #45a049;
+}
+
 .screen.active {
     display: block;
 }
